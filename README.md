@@ -1,27 +1,43 @@
-UserManagementAPI — Proyecto Final (Coursera)
+# UserManagementAPI — Final Project (Coursera)
 
-Descripción del Proyecto
-TechHive Solutions necesita una API interna para gestionar usuarios desde los departamentos de HR e IT. Esta API permite:
-- Crear usuarios
-- Obtener usuarios
-- Actualizar usuarios
-- Eliminar usuarios
-- Validar datos
-- Registrar logs
-- Manejar errores de forma consistente
-- Autenticar solicitudes mediante token (middleware incluido)
+This project was developed as part of a three‑activity backend development module.  
+It includes full CRUD functionality, debugging improvements, validation, custom middleware, and documentation.
 
-El proyecto fue desarrollado con ASP.NET Core Web API y Microsoft Copilot como asistente principal para generación, mejora y depuración del código.
+---
 
-Tecnologías Utilizadas
-- .NET 8
-- ASP.NET Core Web API
-- Swagger / OpenAPI
-- Middleware personalizado
-- DataAnnotations para validación
-- C# 12
+## 🚀 Project Overview
 
-Estructura del Proyecto
+TechHive Solutions requires an internal API to help HR and IT manage user records efficiently.  
+This API supports:
+
+- Creating users  
+- Retrieving users  
+- Updating users  
+- Deleting users  
+- Validating input data  
+- Logging requests and responses  
+- Handling errors consistently  
+- Token‑based authentication (middleware included)
+
+The project was built using **ASP.NET Core Web API**, with **Microsoft Copilot** assisting in code generation, debugging, and enhancement.
+
+---
+
+## 🧩 Technologies Used
+
+- .NET 8  
+- ASP.NET Core Web API  
+- Swagger / OpenAPI  
+- Custom Middleware  
+- DataAnnotations for validation  
+- C# 12  
+
+---
+
+## 📁 Project Structure
+
+
+Project Structure
 UserManagementAPI/
 ├── Controllers/
 │   └── UsersController.cs
@@ -38,102 +54,100 @@ UserManagementAPI/
 
 Actividad 1 — Writing & Enhancing API Code (COMPLETADA)
 
-Lo realizado:
-- Creación del proyecto UserManagementAPI.
-- Scaffold inicial con Copilot (Program.cs, estructura base).
-- Implementación de CRUD completo:
-  GET /api/users
-  GET /api/users/{id}
-  POST /api/users
-  PUT /api/users/{id}
-  DELETE /api/users/{id}
-- Pruebas con Swagger (POST devolviendo 201 Created).
-- Ajustes sugeridos por Copilot para mejorar claridad y estructura.
 
-Cómo ayudó Copilot:
-- Generó el controlador base con los métodos CRUD.
-- Sugirió la estructura del servicio UserService.
-- Propuso mejoras en Program.cs para registrar servicios y configurar Swagger.
-- Ayudó a corregir rutas, tipos de retorno y estructura del JSON.
+---
 
-Actividad 2 — Debugging API Code (COMPLETADA)
+## 🟦 Activity 1 — Writing & Enhancing API Code (COMPLETED)
 
-Problemas encontrados y corregidos:
-- Falta de validación en el modelo User.
-- GetById devolvía null sin manejar → ahora devuelve 404.
-- Advertencias de nullables → corregidas con = string.Empty.
-- Problemas con Swagger/OpenAPI → resueltos ajustando paquetes y framework.
-- Excepciones no manejadas → corregidas con middleware de errores.
-- POST devolvía 401 → corregido al ajustar el pipeline.
+### ✔ What was done
 
-Cómo ayudó Copilot:
-- Identificó propiedades que necesitaban inicialización.
-- Sugirió convertir User → User? en el servicio.
-- Propuso agregar DataAnnotations.
-- Ayudó a detectar el orden incorrecto del middleware.
-- Sugirió manejo centralizado de errores.
+- Created the `UserManagementAPI` project.
+- Used Copilot to scaffold the initial setup (Program.cs, basic structure).
+- Implemented full CRUD endpoints:
+  - `GET /api/users`
+  - `GET /api/users/{id}`
+  - `POST /api/users`
+  - `PUT /api/users/{id}`
+  - `DELETE /api/users/{id}`
+- Tested endpoints using Swagger (POST returned 201 Created).
+- Applied Copilot suggestions to improve clarity and structure.
 
-Actividad 3 — Middleware (COMPLETADA)
+### ✔ How Copilot helped
 
-Middleware implementado:
-1. LoggingMiddleware
-   - Registra método HTTP, ruta y código de respuesta.
+- Generated the base controller with CRUD methods.
+- Suggested the structure for `UserService`.
+- Improved Program.cs configuration (services, Swagger).
+- Helped refine routes, return types, and JSON structure.
 
-2. ErrorHandlingMiddleware
-   - Captura excepciones no manejadas.
-   - Devuelve JSON consistente: { "error": "Internal server error." }
+---
 
-3. AuthenticationMiddleware
-   - Valida token en el header Authorization.
-   - Devuelve 401 si el token es inválido.
-   - Puede activarse o dejarse comentado.
+## 🟩 Activity 2 — Debugging API Code (COMPLETED)
 
-Orden correcto del pipeline:
-1. ErrorHandlingMiddleware
-2. AuthenticationMiddleware
-3. LoggingMiddleware
-4. MapControllers
+### ✔ Issues found and fixed
 
-Cómo ayudó Copilot:
-- Generó la estructura base de cada middleware.
-- Sugirió cómo leer el cuerpo de la respuesta para logging.
-- Indicó el orden correcto del pipeline.
-- Ayudó a implementar validación del token.
+- Missing validation in the `User` model.
+- `GetById` returned null without handling → now returns 404.
+- Nullable warnings fixed using `= string.Empty`.
+- Swagger/OpenAPI issues resolved by adjusting framework and packages.
+- Unhandled exceptions fixed using error‑handling middleware.
+- POST returning 401 fixed by adjusting middleware order.
 
-Cómo ejecutar el proyecto:
-1. Clonar el repositorio:
-   git clone https://github.com/Karimo64/UserManagementAPI.git
+### ✔ How Copilot helped
 
-2. Entrar al proyecto:
-   cd UserManagementAPI
+- Identified properties requiring initialization.
+- Suggested changing `User` → `User?` in the service.
+- Recommended adding DataAnnotations.
+- Detected incorrect middleware order.
+- Proposed centralized error handling.
 
-3. Ejecutar:
-   dotnet run
+---
 
-4. Abrir Swagger:
-   http://localhost:xxxx/swagger
+## 🟥 Activity 3 — Middleware Implementation (COMPLETED)
 
-Cómo probar los endpoints:
+### ✔ Middleware implemented
 
-POST /api/users
-Body:
-{
-  "name": "Karim",
-  "email": "karim@example.com",
-  "role": "Admin"
-}
+#### 1. LoggingMiddleware  
+Logs:
+- HTTP method  
+- Request path  
+- Response status code  
 
-GET /api/users
-GET /api/users/{id}
-PUT /api/users/{id}
-DELETE /api/users/{id}
+#### 2. ErrorHandlingMiddleware  
+- Catches unhandled exceptions  
+- Returns consistent JSON:  
+  `{ "error": "Internal server error." }`
 
-Criterios de evaluación (25/25)
-- GitHub repo creado: ✔
-- CRUD completo: ✔
-- Debugging con Copilot: ✔
-- Validaciones: ✔
-- Middleware (logging, auth, error handling): ✔
+#### 3. AuthenticationMiddleware  
+- Validates token from the Authorization header  
+- Returns 401 Unauthorized if invalid  
+- Can be enabled or left commented depending on requirements  
 
-Proyecto completado.
-Este repositorio contiene el resultado final de las tres actividades del curso, con todas las funcionalidades requeridas y documentación clara del proceso.
+### ✔ Correct pipeline order
+
+1. ErrorHandlingMiddleware  
+2. AuthenticationMiddleware  
+3. LoggingMiddleware  
+4. MapControllers  
+
+### ✔ How Copilot helped
+
+- Generated the base structure for each middleware.
+- Suggested how to read the response body for logging.
+- Ensured the correct middleware order.
+- Helped implement token validation logic.
+
+---
+
+## 🧪 How to Run the Project
+
+1. Clone the repository:
+
+2. Navigate into the project:
+
+3. Run the API:
+
+4. Open Swagger UI:  http://localhost:xxxx/swagger
+
+
+
+
